@@ -223,13 +223,11 @@ html, body {
 
 .explosion-dock-card {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 14px 24px;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 16px;
   width: 100%;
-  max-width: min(520px, calc(100% - 8px));
+  max-width: min(600px, calc(100% - 8px));
   padding: 18px 22px 20px;
   border-radius: 12px;
   border: 1px solid rgba(255, 48, 48, 0.5);
@@ -238,6 +236,15 @@ html, body {
     0 8px 32px rgba(0, 0, 0, 0.55),
     0 0 0 1px rgba(0, 0, 0, 0.35),
     inset 0 1px 0 rgba(255, 120, 120, 0.12);
+}
+
+.explosion-dock-card-main {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 14px 24px;
 }
 
 .explosion-dock-card-icon {
@@ -289,6 +296,42 @@ html, body {
 .explosion-dock-card-btn:hover {
   background: var(--red);
   color: #000;
+}
+
+.explosion-dock-overly-pitch {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 18px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.explosion-dock-overly-logo {
+  height: 40px;
+  width: auto;
+  max-width: min(200px, 45vw);
+  object-fit: contain;
+  flex-shrink: 0;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.4));
+}
+
+.explosion-dock-overly-text {
+  flex: 1;
+  min-width: 200px;
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-dim);
+  text-align: left;
+}
+
+.explosion-dock-overly-text strong {
+  color: #c8fff0;
+  font-weight: 700;
+  letter-spacing: 0.02em;
 }
 
 /* /game — bomb + explosion dock share column; viewport shrinks when dock mounts */
