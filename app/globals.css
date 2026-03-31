@@ -51,6 +51,262 @@ html, body {
   overflow: hidden;
 }
 
+.app-root--guided-solo .defuser-side--guided-solo {
+  flex: 1;
+  max-width: 100%;
+  border-right: none;
+}
+
+/* /game/clean — 3D only (nested under .game-clean-root) */
+.game-clean-root {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: #080808;
+}
+
+.game-clean-bar {
+  flex-shrink: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+  padding: 10px 20px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(0, 0, 0, 0.65);
+  font-family: var(--font-display);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.game-clean-back,
+.game-clean-link {
+  color: var(--text-dim);
+  text-decoration: none;
+}
+
+.game-clean-link {
+  color: var(--amber);
+}
+
+.game-clean-back:hover,
+.game-clean-link:hover {
+  text-decoration: underline;
+}
+
+.game-clean-root .game-defuser-only-root {
+  flex: 1 1 0;
+  min-height: 0;
+  width: 100%;
+  height: auto;
+}
+
+/* Standalone full-viewport bomb (clean layout uses flex child above) */
+.game-defuser-only-root {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background: #080808;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: stretch;
+  overflow: hidden;
+}
+
+.game-defuser-only-scene {
+  flex: 1 1 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  position: relative;
+}
+
+.game-defuser-only-viewport {
+  flex: 1 1 0;
+  min-height: 0;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+  /* Let Spline’s ResizeObserver see a real box (was clipping 75vh-tall canvas) */
+  overflow: auto;
+}
+
+/* Win/loss when HUD absent (/game/clean) */
+.game-end-minimal {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.88);
+  animation: fadeIn 0.35s ease;
+}
+
+.game-end-minimal-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 32px 48px;
+  border-radius: 8px;
+  max-width: 90vw;
+}
+
+.game-end-minimal-panel.defused {
+  border: 1px solid var(--green-dim);
+  background: rgba(0, 24, 16, 0.95);
+}
+
+.game-end-minimal-panel.exploded {
+  border: 1px solid var(--red-dim);
+  background: rgba(24, 8, 8, 0.95);
+}
+
+.game-end-minimal-icon {
+  font-size: 44px;
+}
+
+.game-end-minimal-congrats {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--amber);
+}
+
+.game-end-minimal-title {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+}
+
+.game-end-minimal-panel.defused .game-end-minimal-title {
+  color: var(--green);
+}
+
+.game-end-minimal-panel.exploded .game-end-minimal-title {
+  color: var(--red);
+}
+
+.game-end-minimal-sub {
+  font-size: 13px;
+  color: var(--text-dim);
+  text-align: center;
+}
+
+/* Explosion: card docked under Spline (guided + clean). Scene viewport flexes above. */
+.explosion-dock-outer {
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px 16px 18px;
+  background: linear-gradient(to top, rgba(6, 0, 0, 0.97), rgba(12, 4, 4, 0.88));
+  border-top: 1px solid var(--red-dim);
+  animation: fadeIn 0.35s ease;
+}
+
+.explosion-dock-card {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 14px 24px;
+  width: 100%;
+  max-width: min(520px, calc(100% - 8px));
+  padding: 18px 22px 20px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 48, 48, 0.5);
+  background: linear-gradient(160deg, rgba(36, 10, 10, 0.98) 0%, rgba(14, 4, 4, 0.99) 100%);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 120, 120, 0.12);
+}
+
+.explosion-dock-card-icon {
+  font-size: 32px;
+  line-height: 1;
+}
+
+.explosion-dock-card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  min-width: 0;
+}
+
+.explosion-dock-card-title {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  color: var(--red);
+  text-shadow: 0 0 20px var(--red-glow);
+}
+
+.explosion-dock-card-sub {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--text-dim);
+  text-align: left;
+  line-height: 1.35;
+}
+
+.explosion-dock-card-btn {
+  margin: 0;
+  padding: 11px 26px;
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  border: 2px solid var(--red);
+  background: transparent;
+  color: var(--red);
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.2s;
+  border-radius: 4px;
+}
+
+.explosion-dock-card-btn:hover {
+  background: var(--red);
+  color: #000;
+}
+
+/* /game — bomb + explosion dock share column; viewport shrinks when dock mounts */
+.guided-scene-stack {
+  flex: 1 1 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.guided-scene-stack .guided-scene-viewport {
+  flex: 1 1 0;
+  min-height: 0;
+  min-width: 0;
+  overflow: auto;
+}
+
 .side {
   flex: 1;
   display: flex;
@@ -73,11 +329,6 @@ html, body {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-}
-
-.overly-side {
-  background: #0c0c10;
-  overflow-y: auto;
 }
 
 .side-label {
@@ -108,76 +359,88 @@ html, body {
   50% { opacity: 0.4; }
 }
 
-/* Split divider */
-.split-divider {
-  width: 48px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0;
-  background: #0a0a0a;
-  border-left: 1px solid var(--border);
-  border-right: 1px solid var(--border);
-  flex-shrink: 0;
-}
-.divider-line {
-  flex: 1;
-  width: 1px;
-  background: linear-gradient(to bottom, transparent, var(--red-dim), transparent);
-}
-.divider-icon {
-  font-size: 20px;
-  padding: 12px 0;
-  filter: grayscale(0.5);
-}
-
 /* ============================================================
-   SPLINE HOME (/) — Next.js Spline + 75% viewport canvas area
+   HOME (/) — links only
    ============================================================ */
-.spline-home {
+.home-simple {
   min-height: 100vh;
   background: var(--bg);
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.spline-home-bar {
-  width: 100%;
-  padding: 12px 20px;
-  border-bottom: 1px solid var(--border);
-  flex-shrink: 0;
-}
-
-.spline-home-bar a {
-  font-family: var(--font-display);
-  font-size: 9px;
-  letter-spacing: 0.15em;
-  color: var(--amber);
-  text-decoration: none;
-}
-
-.spline-home-viewport {
-  width: 75vw;
-  height: 75vh;
-  flex: 1;
-  min-height: 0;
-  display: flex;
-  align-items: center;
   justify-content: center;
-  position: relative;
+  padding: 32px 20px;
+  gap: 20px;
 }
 
-.spline-home-viewport > div {
-  width: 100%;
-  height: 100%;
+.home-simple-title {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 4vw, 36px);
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text);
 }
 
-.spline-home-viewport canvas {
-  display: block;
+.home-simple-lead {
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--text-dim);
+  text-align: center;
+  max-width: 420px;
+  line-height: 1.5;
+}
+
+.home-simple-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 6px;
   width: 100%;
-  height: 100%;
+  max-width: 320px;
+  margin-top: 8px;
+}
+
+.home-simple-btn {
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-align: center;
+  text-decoration: none;
+  padding: 14px 20px;
+  border: 1px solid var(--border-accent);
+  color: var(--amber);
+  background: var(--bg-card);
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.home-simple-btn:hover {
+  background: var(--bg-card-2);
+  border-color: var(--amber);
+}
+
+.home-simple-btn--primary {
+  border-color: var(--red);
+  color: var(--red);
+}
+
+.home-simple-btn--primary:hover {
+  background: rgba(255, 32, 32, 0.12);
+}
+
+.home-simple-btn--manual {
+  margin-top: 12px;
+  border-color: var(--green-dim);
+  color: var(--green);
+}
+
+.home-simple-hint {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin: 0 0 14px 4px;
+  line-height: 1.35;
 }
 
 /* ============================================================
@@ -193,21 +456,28 @@ html, body {
   overflow: visible;
 }
 
-/* 3D viewport: 75% of viewport width × 75% of viewport height */
+/*
+ * 3D viewport: aim for 75vw×75vh but never exceed the flex parent — otherwise
+ * overflow:hidden ancestors clip the canvas and Spline’s ResizeObserver can stay at 0×0.
+ */
 .bomb-scene-wrapper {
-  width: 75vw;
-  height: 75vh;
-  flex-shrink: 0;
+  width: min(75vw, 100%);
+  height: min(75vh, 100%);
+  max-width: 100%;
+  max-height: 100%;
+  min-width: 0;
+  min-height: 200px;
+  flex-shrink: 1;
   position: relative;
 }
 
 /*
  * Time-up Spline scene: portrait frame matching user reference (328×366).
- * Sized to fit inside the same 75vw×75vh budget so framing stays consistent.
  */
 .bomb-scene-wrapper--time-up {
-  width: min(75vw, calc(75vh * 328 / 366));
+  width: min(75vw, 100%, calc(75vh * 328 / 366));
   height: auto;
+  max-height: min(75vh, 100%);
   aspect-ratio: 328 / 366;
   background: #3a3a3e;
   overflow: hidden;
@@ -217,10 +487,113 @@ html, body {
 .bomb-scene-wrapper > div {
   width: 100%;
   height: 100%;
+  min-height: 0;
+  min-width: 0;
 }
 
 .bomb-scene-wrapper canvas {
   display: block;
+}
+
+/* ============================================================
+   DEFUSE HIGHLIGHT — overlay on 3D viewport (tracks Spline objects)
+   ============================================================ */
+.defuse-highlight-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 40;
+  overflow: visible;
+}
+
+.defuse-highlight-spot {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.defuse-highlight-ring-wrap {
+  position: relative;
+  width: 88px;
+  height: 88px;
+  flex-shrink: 0;
+}
+
+.defuse-highlight-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 3px solid var(--amber);
+  box-shadow:
+    0 0 0 4px rgba(255, 170, 0, 0.15),
+    0 0 32px var(--amber-glow),
+    inset 0 0 24px rgba(255, 170, 0, 0.12);
+  animation: defuse-ring-pulse 1.4s ease-in-out infinite;
+}
+
+.defuse-highlight-core {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 14px;
+  height: 14px;
+  margin: -7px 0 0 -7px;
+  border-radius: 50%;
+  background: var(--amber);
+  box-shadow: 0 0 16px var(--amber);
+  animation: defuse-core-blink 0.9s ease-in-out infinite;
+}
+
+.defuse-highlight-tag {
+  margin-top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 6px 14px 8px;
+  background: linear-gradient(180deg, rgba(30, 28, 20, 0.95) 0%, rgba(12, 10, 8, 0.98) 100%);
+  border: 1px solid rgba(255, 170, 0, 0.45);
+  border-radius: 4px;
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.6),
+    0 0 20px rgba(255, 170, 0, 0.12);
+  backdrop-filter: blur(6px);
+}
+
+.defuse-highlight-tag-label {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  color: var(--amber);
+  text-shadow: 0 0 12px var(--amber-glow);
+}
+
+.defuse-highlight-tag-key {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+
+@keyframes defuse-ring-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.06);
+    opacity: 0.88;
+  }
+}
+
+@keyframes defuse-core-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
 }
 
 /* ============================================================
@@ -238,6 +611,20 @@ html, body {
   flex: 1;
   min-height: 0;
   overflow-y: auto;
+}
+
+/* /game defuser column: no instructional copy, strike pips only */
+.hud--defuser-minimal {
+  grid-template-columns: 1fr;
+  justify-items: center;
+  align-content: center;
+  flex: 0 0 auto;
+  min-height: 0;
+  padding: 14px 16px;
+}
+
+.hud--defuser-minimal .strikes--icon-only {
+  flex-direction: row;
 }
 
 @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
@@ -284,11 +671,36 @@ html, body {
 /* Module Status */
 .modules-status { display: flex; flex-direction: column; gap: 6px; }
 .hud-defuse-only { min-width: 0; }
+.defuse-overlay-hint {
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: var(--text-dim);
+  letter-spacing: 0.04em;
+  line-height: 1.35;
+  margin: 0 0 6px;
+}
 .defuse-keys-hint {
   display: flex;
   flex-direction: column;
   gap: 6px;
   margin-bottom: 4px;
+}
+.defuse-keys-hint--compact {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+.defuse-wire-hint {
+  font-family: var(--font-body);
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 0.03em;
+  line-height: 1.35;
+  margin: 0;
+}
+.defuse-wire-hint strong {
+  color: var(--yellow);
 }
 .defuse-key-row {
   display: flex;
@@ -427,6 +839,23 @@ html, body {
 }
 .end-state.defused { background: rgba(0, 20, 10, 0.97); }
 .end-state.exploded { background: rgba(20, 0, 0, 0.97); }
+
+/* Win card: cover full viewport so it sits on top of the Spline scene */
+.end-state--over-scene {
+  position: fixed;
+  inset: 0;
+  z-index: 400;
+}
+
+.end-state.defused.end-state--over-scene .reset-btn {
+  border-color: var(--green-dim);
+  color: var(--green);
+}
+.end-state.defused.end-state--over-scene .reset-btn:hover {
+  background: var(--green);
+  border-color: var(--green);
+  color: #000;
+}
 .end-icon { font-size: 48px; }
 .end-congrats {
   font-family: var(--font-display);
@@ -481,283 +910,40 @@ html, body {
 }
 .manual-link:hover { color: var(--amber); }
 
-/* ============================================================
-   OVERLY PANEL
-   ============================================================ */
-.overly-panel {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  font-family: var(--font-body);
-  overflow-y: auto;
-  padding-bottom: 20px;
-}
-
-.overly-header {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 14px 20px;
-  border-bottom: 1px solid var(--border);
-  background: rgba(0,0,0,0.4);
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
-
-.overly-logo {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--font-display);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 3px;
-  color: var(--green);
-}
-.overly-logo-dot {
-  width: 8px; height: 8px;
-  background: var(--green);
-  border-radius: 50%;
-  box-shadow: 0 0 10px var(--green-glow);
-  animation: pulse 2s ease-in-out infinite;
-}
-.overly-sections {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  padding: 16px;
-}
-
-.overly-section {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 14px;
-  margin-bottom: 12px;
-  transition: all 0.4s;
-}
-.overly-section.section-done {
-  opacity: 0.5;
-  border-color: var(--green-dim);
-  background: rgba(0,255,136,0.03);
-}
-
-.overly-section-title {
-  font-family: var(--font-display);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  color: var(--text-dim);
-  text-transform: uppercase;
-  margin-bottom: 12px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.solved-badge {
-  margin-left: auto;
+.side-footer-layouts {
+  display: block;
+  margin-top: 8px;
+  font-family: var(--font-mono);
   font-size: 9px;
-  color: var(--green);
-  background: rgba(0,255,136,0.1);
-  padding: 2px 8px;
-  border-radius: 99px;
-  border: 1px solid var(--green-dim);
-}
-
-.overly-grid-2 {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-}
-.overly-info-box {
-  background: var(--bg-card-2);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 10px;
-}
-.overly-info-label {
-  font-family: var(--font-display);
-  font-size: 8px;
-  letter-spacing: 2px;
+  letter-spacing: 0.06em;
   color: var(--text-muted);
-  text-transform: uppercase;
-  margin-bottom: 4px;
-}
-.overly-info-value {
-  font-family: var(--font-mono);
-  font-size: 16px;
-  color: var(--amber);
-  letter-spacing: 2px;
-}
-.overly-info-value.serial { letter-spacing: 4px; }
-
-/* Wire display in Overly */
-.overly-wire-display { display: flex; flex-direction: column; gap: 4px; margin-bottom: 10px; }
-.overly-wire {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 6px 10px;
-  border-radius: 4px;
-  border: 1px solid var(--border);
-  background: var(--bg-card-2);
-  transition: opacity 0.3s;
-  font-family: var(--font-mono);
-  font-size: 12px;
-}
-.overly-wire.cut { opacity: 0.3; text-decoration: line-through; }
-.wire-num { color: var(--text-muted); font-size: 10px; min-width: 16px; }
-.wire-col { flex: 1; }
-.overly-wire.red { border-left: 3px solid #ff2020; }
-.overly-wire.blue { border-left: 3px solid #2288ff; }
-.overly-wire.yellow { border-left: 3px solid #ffee00; }
-.overly-wire.black { border-left: 3px solid #888; }
-.overly-wire.white { border-left: 3px solid #ccc; }
-.wire-cut-mark { color: var(--green); margin-left: auto; }
-
-/* Button info in Overly */
-.overly-button-info {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 6px;
-  margin-bottom: 10px;
 }
 
-/* Keypad in Overly */
-.overly-keypad-symbols {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 6px;
-  margin-bottom: 10px;
-}
-.overly-sym {
-  background: var(--bg-card-2);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 10px;
-  text-align: center;
-  transition: all 0.3s;
-}
-.overly-sym.pressed {
-  border-color: var(--green);
-  background: rgba(0,255,136,0.1);
-}
-.overly-sym-glyph { font-size: 22px; display: block; }
-.overly-sym-key { font-family: var(--font-mono); font-size: 10px; color: var(--text-muted); }
-
-/* Instruction boxes */
-.overly-instruction {
-  background: rgba(255,170,0,0.06);
-  border: 1px solid rgba(255,170,0,0.2);
-  border-left: 3px solid var(--amber);
-  border-radius: 4px;
-  padding: 10px 12px;
-}
-.overly-inst-label {
-  font-family: var(--font-display);
-  font-size: 8px;
-  letter-spacing: 2px;
-  color: var(--amber);
-  margin-bottom: 4px;
-  text-transform: uppercase;
-}
-.overly-inst-text {
-  font-family: var(--font-body);
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text);
-  line-height: 1.4;
-}
-.overly-defuse-list {
-  margin: 8px 0 10px;
-  padding-left: 18px;
-  font-family: var(--font-body);
-  font-size: 13px;
+.side-footer-layouts a {
   color: var(--text-dim);
-  line-height: 1.55;
+  text-decoration: none;
 }
-.overly-defuse-list li { margin-bottom: 6px; }
-.overly-defuse-list kbd {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  padding: 2px 6px;
-  border-radius: 3px;
-  border: 1px solid var(--border);
-  background: var(--bg-card);
+
+.side-footer-layouts a:hover {
   color: var(--amber);
-}
-
-/* Keypad order */
-.overly-order {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  margin-top: 6px;
-}
-.overly-order-step {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 4px 8px;
-  border-radius: 4px;
-  border: 1px solid var(--border);
-  font-family: var(--font-mono);
-  font-size: 13px;
-  transition: all 0.3s;
-}
-.overly-order-step.done {
-  background: rgba(0,255,136,0.1);
-  border-color: var(--green-dim);
-  opacity: 0.5;
-}
-.order-num {
-  font-size: 10px;
-  color: var(--text-muted);
-  min-width: 16px;
-}
-.order-glyph { font-size: 18px; }
-.order-key { color: var(--text-dim); font-size: 11px; }
-
-/* Strikes in Overly */
-.overly-strikes {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 12px 16px;
-  border-top: 1px solid var(--border);
-  margin-top: auto;
-  position: sticky;
-  bottom: 0;
-  background: var(--bg-panel);
-}
-.overly-strike-pip {
-  font-family: var(--font-mono);
-  font-size: 18px;
-  color: var(--text-muted);
-  transition: all 0.3s;
-}
-.overly-strike-pip.hit { color: var(--red); text-shadow: 0 0 10px var(--red-glow); }
-.overly-strikes-label {
-  font-family: var(--font-display);
-  font-size: 8px;
-  letter-spacing: 3px;
-  color: var(--text-muted);
-  margin-left: 8px;
-  text-transform: uppercase;
 }
 
 /* ============================================================
    MANUAL PAGE
    ============================================================ */
+/* Scroll container: body/html stay overflow:hidden for game views */
 .manual-page {
   max-width: 800px;
   margin: 0 auto;
   padding: 40px 20px 80px;
-  min-height: 100vh;
+  height: 100%;
+  max-height: 100vh;
+  max-height: 100dvh;
+  min-height: 0;
   background: var(--bg);
+  overflow-x: hidden;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .manual-header {
@@ -765,6 +951,37 @@ html, body {
   margin-bottom: 48px;
   padding-bottom: 32px;
   border-bottom: 2px solid var(--red-dim);
+}
+
+.manual-classified-banner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 24px;
+  padding: 14px 20px;
+  border: 2px solid var(--red);
+  background: rgba(60, 0, 0, 0.45);
+  box-shadow:
+    0 0 0 1px rgba(255, 32, 32, 0.25),
+    inset 0 0 24px rgba(0, 0, 0, 0.4);
+}
+
+.manual-classified-banner__line {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--red);
+  text-shadow: 0 0 20px rgba(255, 32, 32, 0.35);
+}
+
+.manual-classified-banner__line:last-child {
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  color: var(--amber);
+  text-shadow: 0 0 16px rgba(255, 170, 0, 0.2);
 }
 .manual-title {
   font-family: var(--font-display);
@@ -850,6 +1067,125 @@ html, body {
   line-height: 1.5;
 }
 .manual-section li strong { color: var(--amber); }
+
+.manual-lead {
+  margin-bottom: 16px;
+}
+
+.manual-section .manual-sequence {
+  list-style: decimal;
+  padding-left: 1.35rem;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.manual-section .manual-sequence > li {
+  display: list-item;
+  list-style-position: outside;
+}
+
+.manual-section kbd {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  padding: 2px 7px;
+  border: 1px solid var(--border-accent);
+  border-radius: 4px;
+  background: var(--bg-card-2);
+  color: var(--text);
+}
+
+.manual-page--obtuse .manual-section p,
+.manual-page--obtuse .manual-section li {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--text-dim);
+}
+
+.manual-obtuse-lead {
+  font-style: italic;
+  border-left: 3px solid var(--border);
+  padding-left: 14px;
+}
+
+.manual-cryptic-note {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.55;
+  margin-top: 14px;
+  padding: 10px 12px;
+  background: var(--bg-card-2);
+  border-radius: 4px;
+  border: 1px dashed var(--border);
+}
+
+.manual-table-wrap {
+  overflow-x: auto;
+  margin: 16px 0;
+}
+
+.manual-data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
+.manual-data-table th,
+.manual-data-table td {
+  border: 1px solid var(--border);
+  padding: 8px 10px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.manual-data-table th {
+  font-family: var(--font-display);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: var(--bg-card-2);
+}
+
+.manual-data-table tbody tr:nth-child(even) {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.manual-spoiler-shy {
+  color: var(--amber);
+  opacity: 0.92;
+}
+
+.manual-disclaimer {
+  margin-top: 16px;
+  padding: 12px 14px;
+  font-family: var(--font-display);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  line-height: 1.5;
+  text-transform: uppercase;
+  color: var(--red);
+  border: 1px solid var(--red-dim);
+  background: rgba(40, 0, 0, 0.35);
+  animation: blink 2.5s ease-in-out infinite;
+}
+
+.manual-sequence--revealed {
+  border: 1px solid var(--border-accent);
+  padding: 16px 16px 16px 2rem;
+  border-radius: 6px;
+  background: rgba(255, 170, 0, 0.04);
+}
+
+.manual-sequence--revealed > li {
+  background: transparent;
+  border-left: none;
+  padding-left: 0;
+}
 
 /* Keypad columns in manual */
 .keypad-columns {
